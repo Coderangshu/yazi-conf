@@ -1,0 +1,44 @@
+[mgr]
+prepend_keymap = [
+	# Navigation & Display
+	{ on = [ "l" ], run = "plugin smart-enter", desc = "Enter directory or open file in editor" },
+	{ on = [ "<Enter>" ], run = "plugin smart-enter", desc = "Enter directory or open file in editor" },
+	{ on = [ "o" ], run = "open --interactive --hovered", desc = "Open hovered file with menu" },
+	{ on = [ "T" ], run = "plugin toggle-pane max-preview", desc = "Maximize or restore preview pane" },
+	{ on = [ "." ], run = "hidden toggle", desc = "Toggle hidden files" },
+	{ on = [ "H" ], run = "arrow top", desc = "Move cursor to top" },
+	{ on = [ "L" ], run = "arrow bot", desc = "Move cursor to bottom" },
+	{ on = [ "R" ], run = "refresh", desc = "Refresh current tab" },
+	{ on = [ "C" ], run = "unselect --all", desc = "Clear all selections" },
+	{ on = [ "U" ], run = "toggle", desc = "Toggle selection" },
+
+	# Openers
+	{ on = [ "e", "e" ], run = """shell '${EDITOR:-nvim} %s' --block""", desc = "Edit in editor" },
+	{ on = [ "u" ], run = """shell '${PAGER:-less -R} %s' --block""", desc = "Pager view" },
+	{ on = [ "V" ], run = """shell 'bash ~/.config/tmux/scripts/view_doc.sh %s' --block""", desc = "Document viewer" },
+	{ on = [ "<C-v>" ], run = """shell 'tmux split-window -v -c "$PWD" "bash ~/.config/tmux/scripts/view_doc.sh %s"'""", desc = "Tmux vertical split viewer" },
+
+	# File Creation & Permissions
+	{ on = [ "m", "f" ], run = "create", desc = "Create file" },
+	{ on = [ "m", "d" ], run = "create --dir", desc = "Create directory" },
+	{ on = [ "m", "r" ], run = """shell 'sudo ${EDITOR:-nvim} %s' --block""", desc = "Sudo edit file" },
+	{ on = [ "c", "h" ], run = """shell 'printf "Mode: "; read m; [ -n "$m" ] && chmod "$m" %s' --block""", desc = "Chmod" },
+
+	# Trash & Deletion
+	{ on = [ "d", "d" ], run = "remove --permanently=false", desc = "Move to trash" },
+	{ on = [ "D", "D" ], run = "remove --permanently=true", desc = "Delete permanently" },
+	{ on = [ "t", "c" ], run = """shell 'trash-empty 2>/dev/null || rm -rf ~/.Trash/*' --confirm""", desc = "Clear trash" },
+	{ on = [ "t", "r" ], run = """shell 'trash-restore' --block""", desc = "Restore trash" },
+
+	# Archive Operations
+	{ on = [ "a", "z" ], run = """shell 'zip -r "%s1.zip" %s' --confirm""", desc = "Zip archive" },
+	{ on = [ "a", "t" ], run = """shell 'tar -cvf "%s1.tar" %s' --confirm""", desc = "Tar archive" },
+	{ on = [ "a", "g" ], run = """shell 'tar -cvzf "%s1.tar.gz" %s' --confirm""", desc = "Tar.gz archive" },
+	{ on = [ "a", "b" ], run = """shell 'tar -cvjf "%s1.tar.bz2" %s' --confirm""", desc = "Tar.bz2 archive" },
+	{ on = [ "a", "u" ], run = """shell 'unar "%s1" 2>/dev/null || tar -xvf "%s1" 2>/dev/null || unzip "%s1"' --confirm""", desc = "Unarchive" },
+
+	# Utilities
+	{ on = [ "b", "g" ], run = """shell 'osascript -e "tell application \"Finder\" to set desktop picture to POSIX file \"%s1\"" 2>/dev/null' --confirm""", desc = "Set wallpaper" },
+	{ on = [ "b", "r" ], run = """shell 'vimv %s' --block""", desc = "Bulk rename with vimv" },
+	{ on = [ "s", "s" ], run = """shell 'stripspace %s' --confirm""", desc = "Strip trailing spaces" },
+]
