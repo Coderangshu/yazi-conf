@@ -21,7 +21,7 @@ edit = [
 	{ run = '${EDITOR:-nvim} %s', block = true, desc = "Edit in Neovim" },
 ]
 glow = [
-	{ run = 'glow -p %s', block = true, desc = "Read Markdown with Glow" },
+	{ run = 'glow -p -w 0 %s', block = true, desc = "Read Markdown with Glow" },
 ]
 pdf = [
 	{ run = 'bash ~/.config/tmux/scripts/view_pdf.sh %s', block = true, desc = "View PDF page-by-page" },
